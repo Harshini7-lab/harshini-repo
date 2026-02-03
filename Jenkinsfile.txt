@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout Ansible Repo') {
             steps {
                 git branch: 'main',
-                    credentialsId: 'token-classic-id',
+                    credentialsId: 'github-classic-id',
                     url: 'https://github.com/Harshini7-lab/harshini-repo.git'
             }
         }
@@ -19,7 +19,7 @@ pipeline {
             steps {
                 dir('web-src') {
                     git branch: 'main',
-                        credentialsId: 'token-classic-id',
+                        credentialsId: 'github-classic-id',
                         url: 'https://github.com/Harshini7-lab/index-repo.git'
                 }
             }
@@ -28,7 +28,7 @@ pipeline {
         stage('Deploy with Ansible') {
             steps {
                 withCredentials([sshUserPrivateKey(
-                    credentialsId: 'token-ssh-id',
+                    credentialsId: 'github-token-id',
                     keyFileVariable: 'SSH_KEY'
                 )]) {
 
@@ -48,4 +48,5 @@ pipeline {
             }
         }
     }
+
 }
